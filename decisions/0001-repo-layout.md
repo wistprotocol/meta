@@ -4,7 +4,7 @@
 
 ## Context
 
-DeltaCommons spans a protocol specification and several independent
+WIST spans a protocol specification and several independent
 components (aggregator, consumer, publisher tooling, auditor). The
 suite's core guarantee is that the aggregator is substitutable and any
 independent implementation can interoperate from the documents alone.

@@ -1,7 +1,7 @@
-# DeltaCommons — Project Meta
+# WIST — Project Meta
 
-Cross-repo engineering decisions and the project map for DeltaCommons: an
-open, verifiable, push-based web index protocol for local AI agents.
+Cross-repo engineering decisions and the project map for the WIST Protocol:
+an open, verifiable, push-based web index protocol for local AI agents.
 
 This repo answers "why do we build it like this?". Protocol decisions —
 "why is the protocol like this?" — live in the spec repo's own
@@ -11,7 +11,7 @@ This repo answers "why do we build it like this?". Protocol decisions —
 
 | Component | What it is | Status |
 |-----------|------------|--------|
-| `spec/` | Protocol specifications (DC-1..DC-4), JSON Schemas, test vectors, conformance tooling | v1.0.0-draft |
+| `spec/` | Protocol specifications (WIST-1..WIST-4), JSON Schemas, test vectors, conformance tooling | v1.0.0-draft |
 | `core/` | Rust: shared primitives — JCS envelopes, Ed25519, Merkle, block parsing (WASM + PyO3 targets) | planned |
 | aggregator | Rust: ingest endpoint, validation, block sealing, snapshots, status endpoint | planned |
 | consumer | Python: log sync, local index materialization, MCP server | planned |
