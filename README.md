@@ -24,6 +24,7 @@ Mirrors need no repo: a mirror is any static file server.
 
 - [ADR-0001](decisions/0001-repo-layout.md) — multi-repo layout, spec separate from implementations
 - [ADR-0002](decisions/0002-implementation-stack.md) — Rust for services and core, Python for data-side components
+- [ADR-0003](decisions/0003-naming-policy.md) — protocol-named libraries, codenamed services
 
 ## License
 
