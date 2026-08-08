@@ -57,6 +57,13 @@ Hybrid stance:
 - Reserved crate names (`wist-verify`, `wist-log`, `wist-client`) are
   placeholder-published with a README pointing at the spec.
 
+## Addendum (2026-08-08): service codenames chosen
+
+- **Spake** — publisher
+- **Clave** — aggregator
+- **Holden** — auditor
+- **Graven** — consumer
+
 ## Alternatives considered
 
 - **Full codename family** (everything, including libraries, under one
