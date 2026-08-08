@@ -12,7 +12,7 @@ This repo answers "why do we build it like this?". Protocol decisions —
 | Component | What it is | Status |
 |-----------|------------|--------|
 | `spec/` | Protocol specifications (WIST-1..WIST-4), JSON Schemas, test vectors, conformance tooling | v1.0.0-draft |
-| `core/` | Rust: shared primitives — JCS envelopes, Ed25519, Merkle, block parsing (WASM + PyO3 targets) | planned |
+| `core/` | Rust: shared primitives — JCS envelopes, Ed25519, Merkle, block parsing (WASM + PyO3 targets) | v0.1 (WIST-1..3 primitives) |
 | aggregator | Rust: ingest endpoint, validation, block sealing, snapshots, status endpoint | planned |
 | consumer | Python: log sync, local index materialization, MCP server | planned |
 | publisher | Rust: site operator CLI — keygen, delta generation, feed maintenance | planned |
