@@ -64,6 +64,12 @@ Hybrid stance:
 - **Holden** — auditor
 - **Graven** — consumer
 
+Published artifacts may carry `wist-` prefixes as registry coordinates
+(`wist-spake`/`wist-clave` on crates.io, `wist-holden`/`wist-graven`
+on PyPI, per the ADR-0002 language split); the codename remains the
+software's name in all prose. The prefix is an address and a
+provenance signal, not the identity.
+
 ## Alternatives considered
 
 - **Full codename family** (everything, including libraries, under one
