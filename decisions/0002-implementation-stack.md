@@ -1,6 +1,6 @@
 # ADR-0002: Rust for services and core, Python for data-side components
 
-**Status:** accepted · **Date:** 2026-08-02
+**Status:** accepted, amended by [ADR-0004](0004-all-rust-stack.md) (2026-08-09: consumer and auditor moved to Rust; PyO3 dropped unless third-party demand) · **Date:** 2026-08-02
 
 ## Context
 

@@ -1,6 +1,6 @@
 # ADR-0003: Naming policy — protocol-named libraries, codenamed services
 
-**Status:** accepted · **Date:** 2026-08-05
+**Status:** accepted, amended by [ADR-0004](0004-all-rust-stack.md) (2026-08-09: Graven's registry coordinates move from PyPI to crates.io + npm; Holden to crates.io) · **Date:** 2026-08-05
 
 ## Context
 
