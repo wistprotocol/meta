@@ -53,3 +53,11 @@ their platform's release cycle.
 - **Spec + reference implementation together, tools separate**: the
   worst of both — the pairing that creates de facto normativity is the
   one kept together. Rejected.
+
+## Addendum (2026-08-09)
+
+The publisher (Spake) was implemented alongside the aggregator and
+consumer rather than after them: the end-to-end pipeline cannot be
+exercised without a working publisher. Implementation repos now exist
+as `core/`, `spake/`, `clave/`, `graven/`; only the auditor (Holden)
+has not been started.
