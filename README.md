@@ -3,14 +3,11 @@
 Cross-repo engineering decisions and the project map for the WIST Protocol:
 an open, verifiable, push-based web index protocol for local AI agents.
 
-This repo answers "why do we build it like this?". Protocol decisions —
-"why is the protocol like this?" — live in the spec repo's own
-`decisions/` folder and never here.
+Protocol design decisions belong in [spec/decisions](../spec/decisions).
 
 **Status: draft under implementation and validation.** Implemented
 capabilities below do not imply complete protocol conformance or production
-readiness. The specification's [publication policy](../spec/PUBLICATION.md)
-conditions final consolidation on an implemented and validated Auditor.
+readiness; see the specification's [publication policy](../spec/PUBLICATION.md).
 
 ## Project map
 
@@ -28,7 +25,7 @@ runs as Graven's end-to-end test, with emitted artifacts validated by
 the spec repo's independent Python reference. It does not exercise a live
 Holden implementation.
 
-Mirrors need no repo: a mirror is any static file server.
+Mirror and plugin repository policy: [ADR-0001](decisions/0001-repo-layout.md#decision).
 
 ## Decisions
 
