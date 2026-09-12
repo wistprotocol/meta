@@ -4,29 +4,14 @@
 
 ## Context
 
-The value of a transparency protocol is independent implementations
-checking each other. Where a spec and a binary share a name, the binary
-quietly becomes normative and second implementations feel like forks.
-CT got this right — RFC 6962 stayed neutral while Trillian, Sunlight and
-Sigsum interoperate without anyone asking whose code is authoritative.
-IPFS and Matrix had to walk it back (go-ipfs → Kubo, js-ipfs → Helia)
-purely to break "the Go one is IPFS".
-
-The ecosystem splits cleanly by artifact type. Libraries named after
-the protocol they implement are the norm and have never become
-normative — and the precedent holds even first-party: matrix.org wrote
-the Matrix spec and publishes `matrix-sdk`, Bluesky wrote AT Protocol
-and publishes `@atproto/*`, yet independent competitors coexist
-(`matrix-sdk` and `ruma`). Third-party cases (rust-bitcoin's `bitcoin`
-crate, `http`, `webpki`, `libp2p`) show the weaker half: protocol-named
-libraries are not mistaken for their specs. A library's authority comes
-from conformance. The normativity collapse happens to daemons people
-*run* — Synapse, go-ipfs — never to protocol-named libraries
-implementers consume.
+Naming supports [ADR-0001](0001-repo-layout.md)'s separation of specification
+authority from implementations. A service sharing the protocol's name can
+make alternatives appear to be forks; Certificate Transparency instead has
+Trillian, Sunlight and Sigsum, while go-ipfs/js-ipfs became Kubo/Helia.
+Protocol-named libraries retain discoverability without claiming service
+identity: `matrix-sdk` and `ruma` illustrate independent coexistence.
 
 ## Decision
-
-Hybrid stance:
 
 - **WIST** is the protocol brand only: the spec suite, the version wire
   field, the domain — never the name of a repo, service, or company.
@@ -35,16 +20,13 @@ Hybrid stance:
   crate (cf. rust-lang/git2-rs publishing `git2`).
 - **Runnable services** (aggregator, publisher CLI) take distinct
   codenames, chosen when their repos start. The repo carries the
-  codename (`matrix-org/synapse`, `google/trillian`,
-  `letsencrypt/boulder` pattern), because the repo name is the public
-  identity of the software.
+  codename as the software's public identity.
 - **Operated products** (services anyone runs as a product, first-party
   included) take their own codenames, distinct from the reference
-  implementations, so "running a WIST log" never collapses into
-  "running our software".
-- **Guard on "core"** (the Bitcoin Core failure mode): the spec repo
-  maintains an independent pure-Python conformance reference
-  (ADR-0002), so `wist-core` can never quietly become the oracle.
+  implementations.
+- **Conformance independence** follows
+  [ADR-0002](0002-implementation-stack.md#decision): `wist-core` is checked
+  against the independent reference, not treated as the specification.
 
 ## Consequences
 
@@ -67,8 +49,7 @@ Hybrid stance:
 Published artifacts may carry `wist-` prefixes as registry coordinates
 (`wist-spake`/`wist-clave` on crates.io, `wist-holden`/`wist-graven`
 on PyPI, per the ADR-0002 language split); the codename remains the
-software's name in all prose. The prefix is an address and a
-provenance signal, not the identity.
+software's name in all prose. The prefix supplies registry provenance.
 
 ## Alternatives considered
 
