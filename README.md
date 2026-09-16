@@ -41,6 +41,7 @@ never read as current.
 - [ADR-0003](decisions/0003-naming-policy.md) — protocol-named libraries, codenamed services
 - [ADR-0004](decisions/0004-all-rust-stack.md) — first-party stack all-Rust (amends ADR-0002)
 - [ADR-0005](decisions/0005-capacity-model-and-baseline.md) — Clave capacity scenarios, targets, cost model and baseline procedure
+- [ADR-0006](decisions/0006-clave-ingestion-architecture.md) — Clave ingestion stages, partitions, workers, transaction boundaries and the many-Log path
 
 ## License
 
