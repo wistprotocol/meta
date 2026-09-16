@@ -1,6 +1,6 @@
 # ADR-0004: First-party stack goes all-Rust (consumer and auditor)
 
-**Status:** accepted · **Date:** 2026-08-09 · **Amends:** ADR-0002, ADR-0003
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: no auditor is built) · **Date:** 2026-08-09 · **Amends:** ADR-0002, ADR-0003
 
 ## Context
 

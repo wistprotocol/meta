@@ -1,6 +1,6 @@
 # ADR-0001: Multi-repo layout, spec separate from implementations
 
-**Status:** accepted · **Date:** 2026-08-02
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: the auditor repository is never created) · **Date:** 2026-08-02
 
 ## Context
 

@@ -1,6 +1,6 @@
 # ADR-0006: Clave ingestion architecture
 
-**Status:** accepted · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages) · **Date:** 2026-09-16
 
 ## Context
 

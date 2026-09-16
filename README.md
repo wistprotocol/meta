@@ -1,7 +1,7 @@
 # WIST — Project Meta
 
 Cross-repo engineering decisions and the project map for the WIST Protocol:
-an open, verifiable, push-based web index protocol for local AI agents.
+an open, push-based index of signed web publications for local AI agents.
 
 Protocol design decisions belong in [spec/decisions](../spec/decisions).
 
@@ -14,16 +14,15 @@ readiness; see the specification's [publication policy](../spec/PUBLICATION.md).
 | Repo | What it is | Status |
 |------|------------|--------|
 | `spec/` | Protocol specifications (WIST-1..WIST-4), JSON Schemas, test vectors, conformance tooling | v1.0.0-draft |
-| `core/` | Rust: shared primitives, signing, WIST-4 audit math and governance replay | v0.2.0; service integration incomplete |
-| `spake/` | Rust: publisher CLI — sitemap/RSS discovery, signed deltas, feeds, key rotation/recovery, appeals, ping | in development; removal requires explicit or origin-confirmed deletion |
-| `clave/` | Rust: aggregator — ingest, Block sealing, checkpoints, tier0/tier1 snapshots, quotas and governance | in development; parameter-schedule replay implemented, sanction replay and audit integration incomplete |
-| `graven/` | Rust: consumer — snapshot and incremental sync, tier0/tier1, multiple Logs, MCP queries, embedding packs | in development; governance and audit-state verification incomplete |
-| `holden/` | Rust: auditor — sampling, re-fetch, similarity scoring, WARC evidence, audit records | planned |
+| `core/` | Rust: shared primitives, signing, Declaration and governance replay; audit modules pending removal under ADR-0007 | v0.2.0; service integration incomplete |
+| `spake/` | Rust: publisher CLI — sitemap/RSS discovery, signed deltas, feeds, key rotation/recovery, ping | in development; labeler publishing pending |
+| `clave/` | Rust: aggregator — ingest, Block sealing, checkpoints, tier0/tier1 snapshots, quotas and governance | in development; audit ingestion pending removal under ADR-0007 |
+| `graven/` | Rust: consumer — snapshot and incremental sync, tier0/tier1, multiple Logs, MCP queries, embedding packs | in development; ranking profiles and labels pending |
 
 The publication and query pipeline (fixture site → Spake → Clave → Graven → MCP query)
 runs as Graven's end-to-end test, with emitted artifacts validated by
-the spec repo's independent Python reference. It does not exercise a live
-Holden implementation.
+the spec repo's independent Python reference. There is no auditor role
+(ADR-0007).
 
 Mirror and plugin repository policy: [ADR-0001](decisions/0001-repo-layout.md#decision).
 
@@ -42,6 +41,7 @@ never read as current.
 - [ADR-0004](decisions/0004-all-rust-stack.md) — first-party stack all-Rust (amends ADR-0002)
 - [ADR-0005](decisions/0005-capacity-model-and-baseline.md) — Clave capacity scenarios, targets, cost model and baseline procedure
 - [ADR-0006](decisions/0006-clave-ingestion-architecture.md) — Clave ingestion stages, partitions, workers, transaction boundaries and the many-Log path
+- [ADR-0007](decisions/0007-signed-publications-and-consumer-trust.md) — signed publications, no auditor role, labelers as publishers, consumer ranking profiles (amends ADR-0001, 0003, 0004, 0005, 0006)
 
 ## License
 

@@ -1,6 +1,6 @@
 # ADR-0005: Clave capacity model, targets and baseline procedure
 
-**Status:** accepted · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit workload terms dropped) · **Date:** 2026-09-16
 
 ## Context
 
