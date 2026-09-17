@@ -14,9 +14,9 @@ readiness; see the specification's [publication policy](../spec/PUBLICATION.md).
 | Repo | What it is | Status |
 |------|------------|--------|
 | `spec/` | Protocol specifications (WIST-1..WIST-4), JSON Schemas, test vectors, conformance tooling | v1.0.0-draft |
-| `core/` | Rust: shared primitives, signing, Declaration and governance replay; audit modules pending removal under ADR-0007 | v0.2.0; service integration incomplete |
+| `core/` | Rust: shared primitives, signing, Declaration replay, parameter schedules | v0.2.0; service integration incomplete |
 | `spake/` | Rust: publisher CLI — sitemap/RSS discovery, signed deltas, feeds, key rotation/recovery, ping | in development; labeler publishing pending |
-| `clave/` | Rust: aggregator — ingest, Block sealing, checkpoints, tier0/tier1 snapshots, quotas and governance | in development; audit ingestion pending removal under ADR-0007 |
+| `clave/` | Rust: aggregator — ingest, Block sealing, checkpoints, tier0/tier1 snapshots, quotas, parameter changes and withdrawals | in development; labels pending |
 | `graven/` | Rust: consumer — snapshot and incremental sync, tier0/tier1, multiple Logs, MCP queries, embedding packs | in development; ranking profiles and labels pending |
 
 The publication and query pipeline (fixture site → Spake → Clave → Graven → MCP query)

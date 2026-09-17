@@ -185,3 +185,32 @@ decision, not a capacity target for one Clave. Full and partial Consumers
 have a reproducible baseline; the later qualification repeats it with live
 audit traffic and distributed workers and carries every cost this record
 leaves unmeasured.
+
+## Addendum (2026-09-17): audit terms void after ADR-0007
+
+[ADR-0007](0007-signed-publications-and-consumer-trust.md) retired the
+Auditor role, and the audit machinery has since left core, Clave and
+Graven. The following terms of this record are void and are not
+replaced:
+
+- Workload: the Audit Record term (0.02–0.50 Records per Delta per
+  admitted Auditor, each with its own page fetch). Per Delta the
+  aggregator makes about 2 site requests: Feed and Declaration per pull,
+  then one Delta and one Payload fetch per Delta; the Registry Update
+  probe is gone.
+- Per-Log capacity bounds: the roster term (0.5 × *A* Records per Delta).
+  A Log carries Deltas, Declarations, Labels and the four governance acts;
+  the 556 000-Deltas-per-hour bound at 483 bytes per entry stands.
+- Cost model: the seal term's derived-state replay. A seal rebuilds the
+  Snapshot (*c_snap* × *R*) and replays the Block history (*c_hist* × *E*);
+  no derived governance state is refreshed.
+- Unsupported paths: the line on replayed Audit Records, Observer acts
+  and canary acts.
+- Consequences: the later qualification repeats the baseline with
+  distributed workers only; there is no live audit traffic to carry.
+
+The baseline procedure is unchanged; it pings each domain until the
+aggregator admits the Ping, honoring the admission gate's 503, and
+reports the refusals per stage. The 2026-09-17 re-measurement at the same
+scales is recorded with the deployment planning notes beside the
+2026-09-16 record.
