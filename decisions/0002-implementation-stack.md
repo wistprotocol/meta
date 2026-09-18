@@ -1,6 +1,6 @@
 # ADR-0002: Rust for services and core, Python for data-side components
 
-**Status:** accepted, amended by [ADR-0004](0004-all-rust-stack.md) (2026-08-09: consumer and auditor moved to Rust; PyO3 dropped unless third-party demand) · **Date:** 2026-08-02
+**Status:** accepted, amended by [ADR-0004](0004-all-rust-stack.md) (2026-08-09: consumer and auditor moved to Rust; PyO3 dropped unless third-party demand); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch) · **Date:** 2026-08-02
 
 ## Context
 
@@ -64,3 +64,12 @@ hostile-input safety alone did not distinguish them.
 - **TypeScript for services**: fine for a future browser verifier or
   npm publisher tooling; wrong operational profile for the aggregator.
   Revisit only if publisher-side web tooling demands it.
+
+## Addendum (2026-09-18): Block renamed Epoch
+
+The specification's draft ADR-0048 renamed the protocol term Block to
+Epoch: since the single-tree Log a Block is no object, only the interval
+of the Log between two consecutive Checkpoints, and key-transparency logs
+call that interval an epoch. No behavior changed. Where this record says
+"block parsing" and "blocks" among the hostile inputs, read the Log's
+Epochs, served since the same revision as tiles and entry bundles.

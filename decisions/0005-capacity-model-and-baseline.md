@@ -1,6 +1,6 @@
 # ADR-0005: Clave capacity model, targets and baseline procedure
 
-**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit workload terms dropped) · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit workload terms dropped); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch) · **Date:** 2026-09-16
 
 ## Context
 
@@ -214,3 +214,18 @@ aggregator admits the Ping, honoring the admission gate's 503, and
 reports the refusals per stage. The 2026-09-17 re-measurement at the same
 scales is recorded with the deployment planning notes beside the
 2026-09-16 record.
+
+## Addendum (2026-09-18): Block renamed Epoch
+
+The specification's draft ADR-0048 renamed the protocol term Block to
+Epoch: since the single-tree Log a Block is no object, only the interval
+of the Log between two consecutive Checkpoints, and key-transparency logs
+call that interval an epoch. No behavior changed. Read every "Block" in this
+record as "Epoch", and its Parameter Registry identifiers under their
+new names:
+
+- `domain_block_entries_max` → `domain_epoch_entries_max`
+- `max_inclusion_blocks` → `max_inclusion_epochs`
+- `block_decompressed_cap_bytes` → `epoch_cap_bytes`
+
+Values, units and the capacity model are unchanged.

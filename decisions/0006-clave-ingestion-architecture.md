@@ -1,6 +1,6 @@
 # ADR-0006: Clave ingestion architecture
 
-**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages) · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch) · **Date:** 2026-09-16
 
 ## Context
 
@@ -169,3 +169,12 @@ own cadence. Removing the three history-dependent costs is the first
 implementation step: indexed predecessor lookup and a persisted schedule
 for admission, and derived state extended per seal. Full-history replay
 stays as verification and recovery, so the audit path is unchanged.
+
+## Addendum (2026-09-18): Block renamed Epoch
+
+The specification's draft ADR-0048 renamed the protocol term Block to
+Epoch: since the single-tree Log a Block is no object, only the interval
+of the Log between two consecutive Checkpoints, and key-transparency logs
+call that interval an epoch. No behavior changed. Read every "Block" in this
+record as "Epoch"; the ingestion stages, their order and their bounds
+are unchanged.
