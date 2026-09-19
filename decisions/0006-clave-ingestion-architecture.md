@@ -1,6 +1,6 @@
 # ADR-0006: Clave ingestion architecture
 
-**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch) · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch); amended by Addendum (2026-09-19: sixteen partitions per store and fencing tokens on partition and sealer leases) · **Date:** 2026-09-16
 
 ## Context
 
@@ -178,3 +178,23 @@ of the Log between two consecutive Checkpoints, and key-transparency logs
 call that interval an epoch. No behavior changed. Read every "Block" in this
 record as "Epoch"; the ingestion stages, their order and their bounds
 are unchanged.
+
+## Addendum (2026-09-19): partition count and fencing
+
+A store is created with sixteen partitions, and that count never changes
+for the store; a domain's partition is the first eight octets of the
+SHA-256 of its Canonical Host, read big-endian, modulo the count. A
+single process holds all sixteen, so "one partition" above reads as
+"one owner"; the fixed count lets a later owner take over part of the
+domains without rehashing them. Every partition lease and the Log-wide
+sealer lease carry a token that each takeover increments. A pull or a
+seal runs with the token it was issued under, and every write
+transaction it makes compares that token with the current one after
+beginning and rolls back on a mismatch, so a former owner writes
+nothing once its lease is taken, whether or not it has noticed. Leases
+are renewed while their work runs, so lease duration does not bound pull
+or seal duration. A serving process holds its leases under a stable
+instance name, locked exclusively in its data directory for the
+process's lifetime; on start it re-takes the leases recorded under that
+name at once, incrementing their tokens, so a restart neither waits for
+its predecessor's leases to lapse nor shares a token with it.
