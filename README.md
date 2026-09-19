@@ -24,6 +24,10 @@ runs as Graven's end-to-end test, with emitted artifacts validated by
 the spec repo's independent Python reference. There is no auditor role
 (ADR-0007).
 
+Validation records: [three-role functional integration](validation/three-role-integration.md)
+— the revisions, scenarios and specification obligations one
+multi-process run exercised, and the limits known at those revisions.
+
 Mirror and plugin repository policy: [ADR-0001](decisions/0001-repo-layout.md#decision).
 
 ## Decisions
