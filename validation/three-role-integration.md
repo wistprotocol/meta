@@ -13,11 +13,11 @@ publication.
 
 | Repository | Revision |
 |---|---|
-| `spec/` | `b622603f95332cb410692425740e08cfb13f8f8c` |
-| `core/` | `3d500ed7bba71e60f8ee0c4f0c326544cac89fcb` |
+| `spec/` | `585ef26d1a4847f23bf50c8adfe0ba00c5a9f6a2` |
+| `core/` | `ff731d36489a32b5c6dc59497e33d90ddfb2c556` |
 | `spake/` | `b3ad50067d56ffef6cf6a6774e51c257e9edb28a` |
-| `clave/` | `ab92b9eb10688d3cf8f75cc16976c70b84951b27` |
-| `graven/` | `42421a07fdc24d569aea9954df28b1921b8ec423` |
+| `clave/` | `9b68c38649254d559a7017f545c86b6e3ed7e058` |
+| `graven/` | `7f9442a018b658ad8ed21335020d51574ab3c089` |
 
 Every working tree was clean. The run passed on 2026-09-19.
 
@@ -61,12 +61,16 @@ numbers are the first Log's.
 | 15 | `recovery_key_rotation` | `spake recovery-rotate` replaces the recovery key and opens its own window |
 | 16 | `log_key_addition` | `clave log-key add` seals an `aggregator_key_add`; the head and archived Checkpoint carry a signature line from the admitting key and one from the admitted key; records sealed afterwards are served |
 | 18 | `log_key_removal_of_the_genesis_key` | The Checkpoint sealing the removal and every later one is signed by the remaining key alone; the Consumer follows across it; Clave verifies its history, restarts and seals again |
+| 20 | `cold_start_after_the_genesis_keys_removal`, `snapshot_signed_by_the_removed_genesis_key` | A fresh Consumer cold-starts from a Snapshot taken after the removal, authenticating its `aggregator_key` tuples from the Anchor, and reaches the head, records and query answers of the Consumer that followed throughout; a Snapshot whose documents the removed genesis key signed is rejected as `WIST3-E04` naming the document, and the Log is not registered |
 
 Also exercised without a scenario name: Label subscription
 (`graven subscribe`), per-query profile selection, a Consumer MCP server
 restarted between steps, deduplication of one Delta sealed by two Logs,
 validation of the emitted artifacts against the specification's schemas by
-its Python reference tooling, and an independent tiled-log client verifying
+its Python reference tooling before the Log-key rotation and again at the
+final head — key tuples authenticated from the Anchor, every Checkpoint
+verified under the keys valid at its own height and the Snapshot documents
+under the keys valid at the served head — and an independent tiled-log client verifying
 the head Checkpoint and an Inclusion Proof under the genesis key before the
 Log-key rotation and under the remaining key at the final head.
 
@@ -85,7 +89,7 @@ not supply (independent implementations, boundary and adversarial cases).
 | WIST-2 §§3.3, 5 Labels | Live Label Feed pulls, `label` and `dispute` Entries, Label tier files, subscription and persistence in ranking | Per-Labeler caps, `WIST2-E06` reporting, expiry |
 | WIST-3 §§5–6 publication | Entries retrievable before each Checkpoint; partial tiles and bundle at the head; archived Checkpoints from genesis; publication resumed after a kill | Payload replication to Mirrors |
 | WIST-3 §§3.1, 4–5 proofs and head adoption | Every Checkpoint verified in order across 21 Epochs of the first Log; an independent client's Consistency and Inclusion checks | Rollback, Equivocation and sequence failures (covered by vector replay in core and Graven, not by this run) |
-| WIST-3 §§7–8 Snapshot position | Cold start from a Snapshot followed by incremental sync | A Snapshot taken after a Log-key act (see below) |
+| WIST-3 §§7–8 Snapshot position | Cold start from a Snapshot followed by incremental sync; a cold start from a Snapshot taken after a key addition and the genesis key's removal; rejection of a Snapshot signed by the removed key | A Snapshot signer admitted above the Snapshot's Epoch; re-fetching a rejected Snapshot from a second source; a Consumer holding state catching up through a Snapshot |
 | WIST-3 §§3.4, 5 Log key succession | An addition and the genesis key's removal sealed by the Aggregator and followed by a replaying Consumer; Checkpoints signed by every valid held key | Succession to a new Log through an Anchor `predecessor` |
 | WIST-4 §§3, 5.1 governance | Key registration and removal, a withdrawal, sealed, served and replayed | Parameter changes and suffix-list snapshots in this run; per-Registrable-Domain capacity rejection |
 
@@ -95,15 +99,13 @@ scheduling hints.
 
 ## Known limits at these revisions
 
-- A Consumer cold-starting from a Snapshot after the genesis key's removal
-  fails: Graven verifies the Snapshot index, manifest and state file under
-  the Anchor's genesis key alone, and the specification does not yet say
-  what authenticates a Snapshot's `aggregator_key` tuples to a party
-  holding only the Anchor. A Consumer replaying from genesis is unaffected.
-  The run's artifact validation is performed before the rotation for the
-  same reason.
 - Graven ignores a Log Anchor's `predecessor`, so succession is
   unimplemented.
+- Graven reads a Snapshot only at cold start, so a Consumer holding state
+  never catches up through one and WIST-3 §7's agreement rule for such a
+  Consumer has no caller.
+- The run configures no Mirrors, so Clave writes no `/log/mirrors.json`
+  and its re-signing of that list on a key removal is not exercised.
 - Graven applies the transport bound per decoded entry bundle rather than
   while streaming.
 - Graven fetches Public Suffix List snapshots, Payloads and Label
