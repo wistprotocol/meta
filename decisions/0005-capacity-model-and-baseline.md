@@ -157,7 +157,11 @@ Recorded so that measured support is never assumed:
 through the real Spake, Clave and Graven executables, ingests them through
 one aggregator behind a request-counting proxy, seals, cold-starts a
 consumer, changes a share of the pages, seals again, seals *K* further
-empty Blocks, verifies the history and catches the consumer up. It reports
+empty Blocks, verifies the history and catches the consumer up. Each seal
+stage runs sealing, incremental Snapshot production and, on request, a full
+rebuild at the same head as separate processes, reporting each one's wall
+seconds, peak resident set size, bytes written, bytes reused and Payload
+reads, and can end with a withdrawal seal. It reports
 wall seconds, bytes and request counts per stage with the revision of every
 repository it ran, so a measurement is reproducible at a named revision on
 any machine (`WIST_BUILD_PROFILE=release`). Model comparisons use:
@@ -165,7 +169,10 @@ any machine (`WIST_BUILD_PROFILE=release`). Model comparisons use:
 - publish seconds per Delta, well-known bytes per Delta;
 - seconds until all domains are pulled, site requests per Delta;
 - seal seconds at Block 0 and per empty Block as history grows (*c_hist* +
-  *c_ext* from the slope, *c_snap* × *R* from the intercept);
+  *c_ext* from the slope); Snapshot production seconds, bytes rewritten and
+  Payload reads per build, incremental against a full rebuild (*c_snap* × *R*
+  is the full rebuild; an unchanged build's cost is the state file and
+  manifest);
 - Block, Payload, Snapshot, SQLite and store bytes per Delta;
 - consumer cold-start and catch-up seconds and store bytes.
 

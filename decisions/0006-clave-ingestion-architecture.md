@@ -1,6 +1,6 @@
 # ADR-0006: Clave ingestion architecture
 
-**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch); amended by Addendum (2026-09-19: sixteen partitions per store and fencing tokens on partition and sealer leases) · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch); amended by Addendum (2026-09-19: sixteen partitions per store and fencing tokens on partition and sealer leases); amended by Addendum (2026-09-23: Snapshot production off the sealing path, with shard reuse and withdrawal supersession) · **Date:** 2026-09-16
 
 ## Context
 
@@ -198,3 +198,27 @@ instance name, locked exclusively in its data directory for the
 process's lifetime; on start it re-takes the leases recorded under that
 name at once, incrementing their tokens, so a restart neither waits for
 its predecessor's leases to lapse nor shares a token with it.
+
+## Addendum (2026-09-23): Snapshot production off the sealing path
+
+Sealing publishes the Epoch and Checkpoint only. Snapshot production
+runs on its own cadence in the sealing instance (after each seal, at
+start and every minute), one producer per data directory. A build reads
+the head Epoch and every input in one read transaction, so its records
+and state reflect exactly that sealed height while pulls keep
+committing; it writes and fsyncs the tier files in a staging directory
+outside the served tree, swaps the directory into place under a lock and
+regenerates the index from the manifests present. Stage 6's idempotence
+by height has one exception: a withdrawal sealed above the build's Epoch
+abandons the build, because the withdrawn record must not reach the
+served tree, and the next build at the head excludes it. "Extended"
+means shard reuse: a shard's fingerprint is the content digest over its
+record projections plus a digest over its Label, dispute and labeler
+rows; a shard whose fingerprint matches its cached entry is hard-linked
+into the build without reading a Payload, while the whole-set content
+digest, the state digest, the state file and the manifest are computed
+in full every build, so an incremental build equals a full rebuild at
+the same height byte for byte. A withdrawal seal removes the served
+Snapshots, the staging area and the cache entry of the shard that held
+the withdrawn Publisher. Earlier Snapshot dates are retained without
+pruning.
