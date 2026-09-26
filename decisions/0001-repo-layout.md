@@ -1,6 +1,6 @@
 # ADR-0001: Multi-repo layout, spec separate from implementations
 
-**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: the auditor repository is never created) · **Date:** 2026-08-02
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: the auditor repository is never created), amended by [Addendum (2026-09-26)](#addendum-2026-09-26) (2026-09-26: deployment automation gets its own repository) · **Date:** 2026-08-02
 
 ## Context
 
@@ -61,3 +61,12 @@ consumer rather than after them: the end-to-end pipeline cannot be
 exercised without a working publisher. Implementation repos now exist
 as `core/`, `spake/`, `clave/`, `graven/`; only the auditor (Holden)
 has not been started.
+
+## Addendum (2026-09-26)
+
+Deployment automation is a concern of its own: `deploy/` holds the
+host layer that turns any Ubuntu host into an aggregator, the same
+install for every operator, and provider modules that rent such hosts,
+Hetzner Cloud first. It ships no
+protocol code, pins the aggregator by release tag and never holds
+signing keys or API tokens. Mirrors still get no repo.

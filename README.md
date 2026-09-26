@@ -18,6 +18,7 @@ readiness; see the specification's [publication policy](../spec/PUBLICATION.md).
 | `spake/` | Rust: publisher CLI — sitemap/RSS discovery, signed deltas, feeds, key rotation/recovery, ping | in development; labeler publishing pending |
 | `clave/` | Rust: aggregator — ingest, Epoch sealing, checkpoints, tier0/tier1 snapshots, quotas, parameter changes and withdrawals | in development; labels pending |
 | `graven/` | Rust: consumer — snapshot and incremental sync, tier0/tier1, multiple Logs, MCP queries, embedding packs | in development; ranking profiles and labels pending |
+| `deploy/` | Host layer that turns any Ubuntu 24.04 machine into an aggregator serving over HTTPS, plus provider modules that rent one (Hetzner Cloud today), the same install for every operator | first rented run pending |
 
 The publication and query pipeline (fixture site → Spake → Clave → Graven → MCP query)
 runs as Graven's end-to-end test, with emitted artifacts validated by
