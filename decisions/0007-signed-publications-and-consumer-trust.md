@@ -1,6 +1,6 @@
 # ADR-0007: Signed publications and consumer-side trust
 
-**Status:** accepted · **Date:** 2026-09-16 · **Amends:** [ADR-0001](0001-repo-layout.md), [ADR-0003](0003-naming-policy.md), [ADR-0004](0004-all-rust-stack.md), [ADR-0005](0005-capacity-model-and-baseline.md), [ADR-0006](0006-clave-ingestion-architecture.md)
+**Status:** accepted, amended by [ADR-0008](0008-declared-publication.md) (2026-09-27: the release of declared publication precedes capacity qualification and release composition) · **Date:** 2026-09-16 · **Amends:** [ADR-0001](0001-repo-layout.md), [ADR-0003](0003-naming-policy.md), [ADR-0004](0004-all-rust-stack.md), [ADR-0005](0005-capacity-model-and-baseline.md), [ADR-0006](0006-clave-ingestion-architecture.md)
 
 ## Context
 

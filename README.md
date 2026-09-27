@@ -47,6 +47,7 @@ never read as current.
 - [ADR-0005](decisions/0005-capacity-model-and-baseline.md) — Clave capacity scenarios, targets, cost model and baseline procedure
 - [ADR-0006](decisions/0006-clave-ingestion-architecture.md) — Clave ingestion stages, partitions, workers, transaction boundaries and the many-Log path
 - [ADR-0007](decisions/0007-signed-publications-and-consumer-trust.md) — signed publications, no auditor role, labelers as publishers, consumer ranking profiles (amends ADR-0001, 0003, 0004, 0005, 0006)
+- [ADR-0008](decisions/0008-declared-publication.md) — publication emitted at the content's source, Collections with an enforced Scope, signed Catalogs, one branch and one release (amends ADR-0005, 0006, 0007)
 
 ## License
 

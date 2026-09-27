@@ -1,6 +1,6 @@
 # ADR-0006: Clave ingestion architecture
 
-**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch); amended by Addendum (2026-09-19: sixteen partitions per store and fencing tokens on partition and sealer leases); amended by Addendum (2026-09-23: Snapshot production off the sealing path, with shard reuse and withdrawal supersession) · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit duties dropped from the stages); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch); amended by Addendum (2026-09-19: sixteen partitions per store and fencing tokens on partition and sealer leases); amended by Addendum (2026-09-23: Snapshot production off the sealing path, with shard reuse and withdrawal supersession); amended by [ADR-0008](0008-declared-publication.md) (2026-09-27: admission state kept per Collection, and the stages fetch and verify a Catalog and its tree files) · **Date:** 2026-09-16
 
 ## Context
 

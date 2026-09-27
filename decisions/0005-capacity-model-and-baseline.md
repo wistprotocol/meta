@@ -1,6 +1,6 @@
 # ADR-0005: Clave capacity model, targets and baseline procedure
 
-**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit workload terms dropped); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch) · **Date:** 2026-09-16
+**Status:** accepted, amended by [ADR-0007](0007-signed-publications-and-consumer-trust.md) (2026-09-16: audit workload terms dropped); amended by Addendum (2026-09-18: the protocol term Block renamed Epoch); amended by [ADR-0008](0008-declared-publication.md) (2026-09-27: the attestation term is one Catalog per Collection, and the sitemap-index path is void) · **Date:** 2026-09-16
 
 ## Context
 
