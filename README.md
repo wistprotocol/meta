@@ -25,7 +25,7 @@ runs as Graven's end-to-end test, with emitted artifacts validated by
 the spec repo's independent Python reference. There is no auditor role
 (ADR-0007).
 
-Validation records: [three-role functional integration](validation/three-role-integration.md)
+Validation records: [three-role functional integration](validation/three-role-integration.md), [capacity baseline under declared publication](validation/capacity-baseline-2026-10-07.md)
 — the revisions, scenarios and specification obligations one
 multi-process run exercised, and the limits known at those revisions.
 
