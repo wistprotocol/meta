@@ -1,6 +1,6 @@
 # ADR-0008: Declared publication
 
-**Status:** accepted · **Date:** 2026-09-27 · **Amends:** [ADR-0005](0005-capacity-model-and-baseline.md), [ADR-0006](0006-clave-ingestion-architecture.md), [ADR-0007](0007-signed-publications-and-consumer-trust.md)
+**Status:** accepted · amended by Addendum (2026-10-07: decision 4 taken, the branches integrated) · **Date:** 2026-09-27 · **Amends:** [ADR-0005](0005-capacity-model-and-baseline.md), [ADR-0006](0006-clave-ingestion-architecture.md), [ADR-0007](0007-signed-publications-and-consumer-trust.md)
 
 ## Context
 
@@ -113,3 +113,30 @@ the normative text is written (decision 5).
   suite for them.
 - Graven's query tools return an Item ID where they returned a Delta
   ID.
+
+## Addendum (2026-10-07)
+
+Decision 4 is taken: the branches are integrated into the main lines and
+released together, core 0.3.0 and Spake, Clave and Graven 0.2.0 against
+specification revision f4acfef. The basis, measured on one machine over
+100 sites of 100 pages with 10 % of pages changed per round, the earlier
+figure being the Delta path's at the same sizes:
+
+- The pull of an update round completes 0.97 s after the last ping
+  against 353.6 s, and a Consumer catches up over twelve Epochs in 6.3 s
+  against 42.7 s. A change list saves 38 % of the requests and octets of
+  a walk.
+- A sealed Item Entry is 913 octets against 484 per Delta, plus 507 per
+  Catalog per changed Collection per Epoch; the seal of 10 000 records
+  takes 6.80 s against 3.24 s and an empty seal 1.2 to 1.8 s against
+  0.18 s.
+- The three-role end-to-end test passes with a Labeler, and the audits of
+  the sealing, recovery and withdrawal paths leave no confirmed
+  divergence open.
+
+The costs that rose are constants at a given scale; the cost that fell
+was the dominant term of the earlier path. Carried into capacity
+qualification: seal time grows with Collection size (121 s for two
+Collections of 5 000 Items), the aggregator's peak memory in an update
+round (434 to 673 MB), the empty-seal rise over consecutive Epochs, and
+the Publisher's run cost of about 10 ms per listed page.

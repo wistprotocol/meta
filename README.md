@@ -13,12 +13,12 @@ readiness; see the specification's [publication policy](../spec/PUBLICATION.md).
 
 | Repo | What it is | Status |
 |------|------------|--------|
-| `spec/` | Protocol specifications (WIST-1..WIST-4), JSON Schemas, test vectors, conformance tooling | v1.0.0-draft |
-| `core/` | Rust: shared primitives, signing, Declaration replay, parameter schedules | v0.2.0; service integration incomplete |
-| `spake/` | Rust: publisher CLI — sitemap/RSS discovery, signed deltas, feeds, key rotation/recovery, ping | in development; labeler publishing pending |
-| `clave/` | Rust: aggregator — ingest, Epoch sealing, checkpoints, tier0/tier1 snapshots, quotas, parameter changes and withdrawals | in development; labels pending |
-| `graven/` | Rust: consumer — snapshot and incremental sync, tier0/tier1, multiple Logs, MCP queries, embedding packs | in development; ranking profiles and labels pending |
-| `deploy/` | Host layer that turns any Ubuntu 24.04 machine into an aggregator serving over HTTPS, plus provider modules that rent one (Hetzner Cloud today), the same install for every operator | first rented run pending |
+| `spec/` | Protocol specifications (WIST-1..WIST-5), JSON Schemas, test vectors, conformance tooling | draft |
+| `core/` | Rust: shared primitives, signing, Catalogs, Items and tree files, Log replay, Snapshot state, parameter schedules | v0.3.0 |
+| `spake/` | Rust: publisher CLI — Emissions from marked pages, Collections, signed Catalogs and Items, key rotation/recovery, Label Feed, ping | v0.2.0 |
+| `clave/` | Rust: aggregator — Collection pulls, Epoch sealing, Checkpoints, tier0/tier1 Snapshots, quotas, parameter changes, Labels and withdrawals | v0.2.0 |
+| `graven/` | Rust: consumer — Snapshot and incremental sync, tier0/tier1, multiple Logs, Labels, ranking profiles, MCP queries, embedding packs | v0.2.0 |
+| `deploy/` | Host layer that turns any Ubuntu 24.04 machine into an aggregator serving over HTTPS, plus provider modules that rent one (Hetzner Cloud today), the same install for every operator | install, upgrade and restore proven on rented hosts |
 
 The publication and query pipeline (fixture site → Spake → Clave → Graven → MCP query)
 runs as Graven's end-to-end test, with emitted artifacts validated by
