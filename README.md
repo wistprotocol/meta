@@ -17,7 +17,7 @@ readiness; see the specification's [publication policy](../spec/PUBLICATION.md).
 | `core/` | Rust: shared primitives, signing, Catalogs, Items and tree files, Log replay, Snapshot state, parameter schedules | v0.3.0 |
 | `spake/` | Rust: publisher CLI — Emissions from marked pages, Collections, signed Catalogs and Items, key rotation/recovery, Label Feed, ping | v0.2.0 |
 | `clave/` | Rust: aggregator — Collection pulls, Epoch sealing, Checkpoints, tier0/tier1 Snapshots, quotas, parameter changes, Labels and withdrawals | v0.2.0 |
-| `graven/` | Rust: consumer — Snapshot and incremental sync, tier0/tier1, multiple Logs, Labels, ranking profiles, MCP queries, embedding packs | v0.2.0 |
+| `graven/` | Rust: consumer — Snapshot and incremental sync, tier0/tier1, multiple Logs, Labels, ranking profiles, MCP queries, embedding packs | v0.2.1 |
 | `deploy/` | Host layer that turns any Ubuntu 24.04 machine into an aggregator serving over HTTPS, plus provider modules that rent one (Hetzner Cloud today), the same install for every operator | install, upgrade and restore proven on rented hosts |
 
 The publication and query pipeline (fixture site → Spake → Clave → Graven → MCP query)

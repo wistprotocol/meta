@@ -21,7 +21,7 @@ publication.
 | `clave/` | `372c5629ea866a9e143259ba54b9c7acd9aefb4d` |
 | `graven/` | `deab1f4c6eacd2575c27bb40a58f4444e2d55b1e` |
 
-The run passed on 2026-10-07.
+The run passed on 2026-10-07. The release tag v0.2.1 of `graven/` follows that revision by the release configuration and the version alone.
 
 ## Reproducing it
 

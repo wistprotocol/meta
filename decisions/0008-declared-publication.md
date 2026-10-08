@@ -117,7 +117,7 @@ the normative text is written (decision 5).
 ## Addendum (2026-10-07)
 
 Decision 4 is taken: the branches are integrated into the main lines and
-released together, core 0.3.0 and Spake, Clave and Graven 0.2.0 against
+released together, core 0.3.0, Spake and Clave 0.2.0 and Graven 0.2.1 against
 specification revision f4acfef. The basis, measured on one machine over
 100 sites of 100 pages with 10 % of pages changed per round, the earlier
 figure being the Delta path's at the same sizes:
