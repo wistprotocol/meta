@@ -25,7 +25,7 @@ runs as Graven's end-to-end test, with emitted artifacts validated by
 the spec repo's independent Python reference. There is no auditor role
 (ADR-0007).
 
-Validation records: [three-role functional integration](validation/three-role-integration.md), [capacity baseline under declared publication](validation/capacity-baseline-2026-10-07.md)
+Validation records: [three-role functional integration](validation/three-role-integration.md), [capacity baseline under declared publication](validation/capacity-baseline-2026-10-07.md), [capacity qualification on rented shapes](validation/capacity-qualification-2026-10-19.md)
 — the revisions, scenarios and specification obligations one
 multi-process run exercised, and the limits known at those revisions.
 
@@ -48,6 +48,7 @@ never read as current.
 - [ADR-0006](decisions/0006-clave-ingestion-architecture.md) — Clave ingestion stages, partitions, workers, transaction boundaries and the many-Log path
 - [ADR-0007](decisions/0007-signed-publications-and-consumer-trust.md) — signed publications, no auditor role, labelers as publishers, consumer ranking profiles (amends ADR-0001, 0003, 0004, 0005, 0006)
 - [ADR-0008](decisions/0008-declared-publication.md) — publication emitted at the content's source, Collections with an enforced Scope, signed Catalogs, one branch and one release (amends ADR-0005, 0006, 0007)
+- [ADR-0009](decisions/0009-clave-storage-and-expansion.md) — SQLite retained, workers deferred, a larger plan as the memory path, with the numeric triggers that reopen each (amends ADR-0006)
 
 ## License
 
