@@ -49,6 +49,7 @@ never read as current.
 - [ADR-0007](decisions/0007-signed-publications-and-consumer-trust.md) — signed publications, no auditor role, labelers as publishers, consumer ranking profiles (amends ADR-0001, 0003, 0004, 0005, 0006)
 - [ADR-0008](decisions/0008-declared-publication.md) — publication emitted at the content's source, Collections with an enforced Scope, signed Catalogs, one branch and one release (amends ADR-0005, 0006, 0007)
 - [ADR-0009](decisions/0009-clave-storage-and-expansion.md) — SQLite retained, workers deferred, a larger plan as the memory path, with the numeric triggers that reopen each (amends ADR-0006)
+- [ADR-0010](decisions/0010-no-standby.md) — no standby for a Log: restore, Mirrors and other operators' Logs cover an outage; a takeover is an equivocation risk
 
 ## License
 

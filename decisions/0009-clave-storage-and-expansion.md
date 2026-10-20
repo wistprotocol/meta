@@ -32,7 +32,6 @@ Triggers that reopen a candidate, each measured per round of the `skew` scenario
 - Longest write hold in a round at or above 30 s (half the busy timeout, beyond which pulls fail their write and retry at most three times; 17 s today): if per-phase timing attributes more than half of it to statement execution and commit, measure PostgreSQL first, partitioned SQLite second; if to computation, the remedy is code and no candidate runs.
 - Pulls taking more than 900 s of the cadence (a quarter; 171 s today) with lock waits, not fetch or verification, the majority of a pull's time: measure partitioned SQLite first, as the candidate without operating cost, then PostgreSQL.
 - Status p99 at or above 250 ms (half its bound; 8 ms today) after the parameter-schedule replay is persisted: a store-side cause is investigated before any candidate.
-- A standby adopted under the availability requirements: PostgreSQL's streaming replication is compared against SQLite WAL shipping at that point, on recovery time and exclusive signing, not on throughput.
 
 Migration path if a candidate is ever adopted: the storage boundary is the six transactional contracts of ADR-0006 (schedule a batch, record a dispatch with its lease, admit a domain batch, seal an Epoch, read a consistent sealed height, serve status and Ping reads), extracted as a trait only when the second implementation exists; the new store is populated by replaying the Log into it and comparing derived state with the SQLite store at the same height; a live store migrates by that replay plus transport of the unsealed state the Log does not carry (pending entries, cursors, budgets, leases); one implementation survives the decision and the other is deleted.
 
@@ -81,7 +80,7 @@ Consequences:
 
 - The primary is created by a rehearsal on the machine itself: installimage with the two NVMes in software RAID 1; the install by the deployment README's manual path, since the Terraform module provisions cloud servers only; a host firewall in place of the cloud firewall; a restore of a rehearsal backup; verification from outside; one Pilot load run under a throwaway Log identity, recorded beside the 2026-10-19 figures. The machine is then reinstalled with the production Log's identity and keys and kept, so the setup fee is paid once and nothing the rehearsal signed survives.
 - Backups go to a Storage Box (EUR 3.20 a month for 1 TB) through the backup script, in place of automatic cloud backups, which dedicated servers lack; that is the independent backup the plans already require.
-- A hardware fault is repaired by part replacement with hours of downtime; the standby question is unchanged and remains governed by the availability requirements.
+- A hardware fault is repaired by part replacement with hours of downtime, inside the recovery budget of [ADR-0010](0010-no-standby.md); no standby is run.
 - Routine qualification stays on cloud `ccx23` shapes: the seal's compute and the memory slope transfer, and the cloud disk figures are conservative for the NVMe. A declaring run before a release rents an AX42 by the hour, about EUR 50 with the setup fee.
 - The memory trigger of decision 3 stands at 75 % of the sealer budget: 36 GB on the AX42. Reaching it reopens the sealer remedy before any larger machine.
 
