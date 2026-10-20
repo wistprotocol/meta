@@ -1,6 +1,6 @@
 # ADR-0009: Clave storage and expansion decision
 
-**Status:** accepted · **Date:** 2026-10-20 · **Amends:** [ADR-0006](0006-clave-ingestion-architecture.md)
+**Status:** accepted, amended by Addendum (2026-10-20: the production primary is a dedicated AX42; cloud plans remain the homologation shapes) · **Date:** 2026-10-20 · **Amends:** [ADR-0006](0006-clave-ingestion-architecture.md)
 
 ## Context
 
@@ -72,3 +72,16 @@ Triggers and actions:
 ### Amendment to ADR-0006
 
 Workers (ADR-0006, Workers) are a deferred path reopened by the fetch-bound trigger of decision 2; the stage contracts, partition leases and fencing stand unchanged. The transaction boundary for sealing ("one write transaction covering the Epoch row, acceptance records, schedule extension, derived-state extension and the pending publication record") is kept as the boundary, with the computation now performed inside it moved out under decision 1.
+
+## Addendum (2026-10-20): the production primary is a dedicated AX42
+
+Decision 3 chose among cloud plans. Hetzner's dedicated AX42 (8 cores with multithreading, 64 GB DDR5 ECC, two 512 GB NVMe, 1 Gbit/s, unlimited traffic; EUR 99.00 a month plus EUR 49.00 setup, hourly billed, no minimum term; FSN1 and HEL1; consulted 2026-10-20) costs the same as `ccx23` with four times its memory and a local NVMe, where the cloud disk was the slow part of the seal and Snapshot. It is therefore the production primary's plan from creation and replaces `ccx33` and `ccx43` as the memory step: at the measured terms it holds about 5.4 M Log records at the Pilot round's waiting term (a 48 GB sealer budget), and the Regional round's waiting-work term fits it with margin once the sealer stops holding the whole Log.
+
+Consequences:
+
+- The primary is created by a rehearsal on the machine itself: installimage with the two NVMes in software RAID 1; the install by the deployment README's manual path, since the Terraform module provisions cloud servers only; a host firewall in place of the cloud firewall; a restore of a rehearsal backup; verification from outside; one Pilot load run under a throwaway Log identity, recorded beside the 2026-10-19 figures. The machine is then reinstalled with the production Log's identity and keys and kept, so the setup fee is paid once and nothing the rehearsal signed survives.
+- Backups go to a Storage Box (EUR 3.20 a month for 1 TB) through the backup script, in place of automatic cloud backups, which dedicated servers lack; that is the independent backup the plans already require.
+- A hardware fault is repaired by part replacement with hours of downtime; the standby question is unchanged and remains governed by the availability requirements.
+- Routine qualification stays on cloud `ccx23` shapes: the seal's compute and the memory slope transfer, and the cloud disk figures are conservative for the NVMe. A declaring run before a release rents an AX42 by the hour, about EUR 50 with the setup fee.
+- The memory trigger of decision 3 stands at 75 % of the sealer budget: 36 GB on the AX42. Reaching it reopens the sealer remedy before any larger machine.
+
