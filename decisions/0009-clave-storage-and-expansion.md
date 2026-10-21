@@ -1,6 +1,6 @@
 # ADR-0009: Clave storage and expansion decision
 
-**Status:** accepted, amended by Addendum (2026-10-20: the production primary is a dedicated AX42; cloud plans remain the homologation shapes) · **Date:** 2026-10-20 · **Amends:** [ADR-0006](0006-clave-ingestion-architecture.md)
+**Status:** accepted, amended by Addendum (2026-10-20: the production primary is a dedicated AX42; cloud plans remain the homologation shapes), amended by Addendum (2026-10-21: the sealer remedy measured; the memory model's Log term gone and its slopes corrected for a harness defect) · **Date:** 2026-10-20 · **Amends:** [ADR-0006](0006-clave-ingestion-architecture.md)
 
 ## Context
 
@@ -83,4 +83,13 @@ Consequences:
 - A hardware fault is repaired by part replacement with hours of downtime, inside the recovery budget of [ADR-0010](0010-no-standby.md); no standby is run.
 - Routine qualification stays on cloud `ccx23` shapes: the seal's compute and the memory slope transfer, and the cloud disk figures are conservative for the NVMe. A declaring run before a release rents an AX42 by the hour, about EUR 50 with the setup fee.
 - The memory trigger of decision 3 stands at 75 % of the sealer budget: 36 GB on the AX42. Reaching it reopens the sealer remedy before any larger machine.
+
+## Addendum (2026-10-21): the sealer remedy measured
+
+The code remedy of decision 1 and decision 3 (derive the seal's inputs from persisted derived state, hold one parsed copy per planned record, move the computation inside the sealing transaction out of it, time the phases, index the hot paths, bound retention) is implemented and measured at the Pilot shape on `ccx23` ([validation record](../validation/sealer-remedy-2026-10-21.md)). Consequences for this record:
+
+- The memory model's Log term (8.4 KB per sealed record of the whole Log in every seal) is gone: an empty seal costs 0.45 KB per sealed record. The slope itself was overstated: the harness read a short process's peak from `wait4`'s rusage, which carries the harness's own resident size into a child spawned with a shared address space; about 6 KB of it was the aggregator's whole-Log replay. The plan table of decision 3 ("Log records with no waiting work") no longer applies; a plan's memory is bounded by the waiting-work term alone.
+- The waiting-work term is about 12.5 KB per record of a publisher with waiting work (14 KB before): a Pilot round peaks at 2.3–2.5 GB, the Regional round at about 14 GB, within the dedicated primary's 36 GB trigger. A further reduction (sharing the Item across the judgment Replay, trimming the planned state's copies) is implementation work with no decision here.
+- The write lock is held 4.6 s at Pilot shape (17 s before), 48 % of it statement execution and commit, nearly all in the state writes. The storage triggers of decision 1 stand unchanged and are not reached (hold 4.6 s against 30 s; pulls 170 s against 900 s; status p99 17 ms against 250 ms); the per-phase timing they require exists.
+- The seal's duration trigger (pulls plus seal plus Snapshot at or above 1 800 s) stands; a round takes 265–270 s. The next code work it names, parallelising the per-Item planning and the Payload publication, is confirmed as the seal's remaining time: at Pilot shape planning is 34 s and the Payload publication 25 s of a 70 s seal, and at genesis the publication is 359 s of 477 s.
 
